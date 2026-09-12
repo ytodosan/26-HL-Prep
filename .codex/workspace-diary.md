@@ -34,3 +34,46 @@ Files: packages/UsrYacht/Schemas/UsrYachtEvents/UsrYachtEvents.cs,
   sonar/rules/README.md, sonar/rules/CR0001/{CR0001.json,CR0001.html,rule-spec.md}
 Impact: Reusable recipe for adding a packaged system setting. Sonar rule CR0001 codifies the three bindings
   (value->setting, code->const, setting->package Data) plus the unconfigured-fallback guard, so the pattern is enforced.
+
+## 2026-09-12 - Git integration: Import from Git never registers the repository
+Context: Preparing a training demo of Creatio's Git integration "Import from Git to Creatio" against
+  https://github.com/ytodosan/26-HL-Prep, on the cloud studio stand
+  (18-9031800-studio-postgresql-demo.creatio.com) and on Y1DEV local.
+Decision: Aligned repo and Y1DEV working tree first (commits edfc734, 8d8c051, 0bfebf7), then reproduced
+  the import on local rather than only on cloud. Did NOT pursue Export from Creatio to Git (would write a
+  different layout into the clio-workspace repo).
+Discovery:
+- IMPORT IS BROKEN, reproducibly and independently of DB engine / hosting. The application INSTALLS
+  successfully ("Application installed successfully" in PackageInstallerService log), but the final step
+  never completes: the UI sits on "Finalizing imported application...", polls
+  POST /0/rest/GitIntegrationService/RecoverPendingImport ~11 times (all HTTP 200), then silently gives up.
+  The Repositories panel stays "No data" and a reload shows "Pending import detected ... Continue recovery
+  / Abort" forever. Reproduced on: cloud PostgreSQL studio stand, Y1DEV local MSSQL (FSM on), and (per the
+  trainer) a third local stand in Edge. "Continue recovery" re-enters the same loop; only "Abort" clears it.
+- The package install log is readable WITHOUT clio via GET /0/ServiceModel/PackageInstallerService.svc/GetLogFile
+  (needs BPMCSRF header). It is cumulative across installs - filter by timestamp or errors are misattributed.
+- SQL script schemas are filtered by DB engine. Terrasoft.Common.DBEngineType: MSSql=0, Oracle=1, PostgreSql=2.
+  UsrYacht's TRSysAdminRootDisable / TRSysAdminUnitEnable were DBEngineType 0, so on PostgreSQL they were
+  skipped entirely, the TRSysAdminUnitRoot trigger stayed armed, and the SysAdminUnit_TicketAdmin data binding
+  failed with P0001 "Cannot add root administering unit. Invalid unit type specified."
+  Fix: added TRSysAdminRootDisablePg / TRSysAdminUnitEnablePg (DBEngineType 2, quoted identifiers). Verified
+  in the log: both ran, in order, no error. Base Creatio names its variants *_PostgreSQL.
+- Terrasoft.Core.Packages.SysPackageSqlScriptInstallType: BeforePackage=0, AfterPackage=1, AfterSchemaData=2,
+  UninstallApp=3. The disable/enable pair correctly uses 0 and 2.
+- A re-install over an already-registered package does a DIFFERENTIAL install: "Installing data" finished in
+  62 ms and never retried the previously failed binding. A failed import still leaves SysPackage + SysInstalledApp
+  rows behind, so "rollback" is not clean - clear those before re-testing a data-binding fix.
+- The section is an IFRAME (/0/rest/GitIntegrationService/ui), so read_page/find see nothing; drive it via
+  iframe contentDocument. Useful ids: #repoScenarioImport/#repoScenarioExport, #repoNameInput, #repoUrlInput.
+  Export mode asks for Name + a single "Creatio application" (one app per repository), Import mode does not.
+- Repository URL must carry the .git suffix. "Git server URL" on the credential is the API endpoint
+  (https://api.github.com), not the repo URL.
+- Y1DEV is MSSQL, .NET Framework, FSM ON: Pkg/UsrYacht and Pkg/UsrMain are SYMLINKS into C:\Dev\Y1DEV\packages,
+  so an import writes straight into the git working tree. Aligning repo==worktree first makes this safe and
+  makes any damage a `git checkout` away. The install regenerated UsrYacht.csproj, restoring 385 lines of
+  Package References that had gone missing (356 -> 741).
+Files: packages/UsrYacht/SqlScripts/TRSysAdminRootDisablePg/, packages/UsrYacht/SqlScripts/TRSysAdminUnitEnablePg/,
+  packages/UsrYacht/Files/UsrYacht.csproj
+Impact: Do not build training material around "Import from Git" until the RecoverPendingImport loop is fixed
+  upstream (source of truth: creatio.ghe.com/engineering/creatio-git, branch conflict-resolving-improvements).
+  The DBEngineType lesson is reusable for any package that must install on both MSSQL and PostgreSQL.
