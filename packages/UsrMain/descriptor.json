@@ -1,0 +1,20 @@
+﻿{
+  "Descriptor": {
+    "UId": "f605e935-4a66-4eaf-85b3-492da0c4c9df",
+    "Name": "UsrMain",
+    "Type": 1,
+    "InstallBehavior": 1,
+    "ModifiedOnUtc": "\/Date(1787591401000)\/",
+    "Maintainer": "Customer",
+    "ProjectPath": "Files/UsrMain.csproj",
+    "Description": "#OriginalMaintainer:Customer",
+    "DependsOn": [
+      {
+        "UId": "2ecba2bd-b810-47a5-a1b1-08c888529d6c",
+        "PackageVersion": "7.8.0",
+        "Name": "CrtCustomer360App",
+        "Type": 1
+      }
+    ]
+  }
+}

@@ -1,0 +1,16 @@
+﻿{
+  "PackageData": [
+    {
+      "Row": [
+        {
+          "SchemaColumnUId": "ae0e45ca-c495-4fe7-a39d-3ab7278e1617",
+          "Value": "e88bc10b-4711-498b-b895-fe978aa61da4"
+        },
+        {
+          "SchemaColumnUId": "13aad544-ec30-4e76-a373-f0cff3202e24",
+          "Value": "UsePanelIconBackground"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,146 @@
+<h2>Why is this an issue?</h2>
+<p>
+  Creatio server code (entity event listeners, configuration web services, process script tasks, business
+  rules) frequently encodes business thresholds: a maximum price, a retry count, a discount ceiling, an
+  expiry window, a status <code>Guid</code>. When such a value is written directly into the C# source as a
+  literal, changing it stops being a configuration act and becomes a development act.
+</p>
+<p>A hard-coded threshold forces the whole deployment cycle for what should be a one-field edit:</p>
+<ul>
+  <li>edit source &rarr; rebuild the package assembly &rarr; reload the package &rarr; restart the application;</li>
+  <li>every environment (dev, test, prod) is locked to the same number, so a tenant or region cannot differ;</li>
+  <li>the number cannot be adjusted per user, role or organisation, which <code>SysSettingsValue</code> supports natively;</li>
+  <li>administrators lose the audit trail and the change history that the System settings section provides;</li>
+  <li>the same constant tends to get duplicated into a validation message, a client-side rule and a report,
+      and the copies drift apart silently.</li>
+</ul>
+<p>
+  The correct home for a business threshold is a Creatio <strong>system setting</strong>
+  (<code>SysSettings</code>), read at runtime through
+  <code>Terrasoft.Core.Configuration.SysSettings.GetValue&lt;T&gt;</code>.
+</p>
+
+<h2>The three bindings this rule enforces</h2>
+<p>
+  "Use a system setting" is only half the fix. A setting that the code reads but the package never ships
+  silently evaluates to its default, and the validation quietly stops working. The value is only correctly
+  externalised when all three bindings below hold. The rule reports whichever one is missing.
+</p>
+<ol>
+  <li>
+    <strong>Value bound to a setting.</strong> The threshold operand must originate from
+    <code>SysSettings.GetValue&lt;T&gt;(userConnection, code, fallback)</code> &mdash; not from a numeric or
+    <code>Guid</code> literal, and not from a <code>const</code> holding the number itself.
+  </li>
+  <li>
+    <strong>Code bound to a named constant.</strong> The setting code passed to <code>GetValue</code> must be a
+    <code>private const string</code> field, not an inline string. Inline codes get copy-pasted and typo'd, and
+    a typo'd code silently returns the fallback instead of failing.
+  </li>
+  <li>
+    <strong>Setting bound to the package.</strong> A folder <code>Data/SysSettings_&lt;Code&gt;/</code> (plus its
+    <code>SysSettingsValue_&lt;Code&gt;/</code> default) must exist in the same package, so installing the package
+    creates the setting. Code that reads a setting no package installs is a latent defect, not configuration.
+  </li>
+</ol>
+<p>
+  Because <code>GetValue</code> returns the fallback when the setting is absent or blank, the code must also
+  <strong>handle the unconfigured case explicitly</strong> rather than letting a <code>0</code> fallback act as a
+  real threshold &mdash; a <code>0</code> maximum would reject every record.
+</p>
+
+<h2>How to fix it</h2>
+<p>
+  Create the system setting in the package's <code>Data</code> folder, hold its code in a
+  <code>const string</code>, read it through <code>SysSettings.GetValue&lt;T&gt;</code>, guard the unconfigured
+  case, and let the localizable message take the value as a <code>{0}</code> placeholder instead of repeating the
+  number in prose.
+</p>
+
+<h3>Noncompliant code example</h3>
+<pre>
+[EntityEventListener(SchemaName = "UsrYacht")]
+public class YachtEntityEventListener : BaseEntityEventListener
+{
+    public override void OnSaving(object sender, EntityBeforeEventArgs e) {
+        base.OnSaving(sender, e);
+        Entity yacht = (Entity)sender;
+        decimal price = yacht.GetTypedColumnValue&lt;decimal&gt;("UsrPrice");
+        if (price &gt; 100000) {                                  // Noncompliant - hard-coded threshold
+            e.IsCanceled = true;
+            string messageTemplate = new LocalizableString(yacht.UserConnection.ResourceStorage,
+                "UsrYachtEvents", "LocalizableStrings.ValueIsTooBig.Value").ToString();
+            throw new Exception(string.Format(messageTemplate, "100 000 EUR")); // Noncompliant - value restated
+        }
+    }
+}
+</pre>
+<p>
+  Moving the literal into <code>private const decimal MaxPrice = 100000m;</code> does <strong>not</strong> resolve
+  the issue: the value is still baked into the assembly and still requires a rebuild to change. The constant must
+  hold the setting <em>code</em>, never the threshold itself.
+</p>
+
+<h3>Compliant solution</h3>
+<pre>
+[EntityEventListener(SchemaName = "UsrYacht")]
+public class YachtEntityEventListener : BaseEntityEventListener
+{
+    // Float system setting holding the maximum allowed yacht price.
+    // A non-positive value means the limit is not configured, so the check is skipped.
+    private const string MaxPriceSettingCode = "UsrYachtMaxPrice";
+
+    public override void OnSaving(object sender, EntityBeforeEventArgs e) {
+        base.OnSaving(sender, e);
+        Entity yacht = (Entity)sender;
+        decimal maxPrice = Terrasoft.Core.Configuration.SysSettings.GetValue&lt;decimal&gt;(
+            yacht.UserConnection, MaxPriceSettingCode, 0m);
+        if (maxPrice &lt;= 0) {
+            return;                                             // Setting is not configured.
+        }
+        decimal price = yacht.GetTypedColumnValue&lt;decimal&gt;("UsrPrice");
+        if (price &lt;= maxPrice) {
+            return;
+        }
+        e.IsCanceled = true;
+        string messageTemplate = new LocalizableString(yacht.UserConnection.ResourceStorage,
+            "UsrYachtEvents", "LocalizableStrings.ValueIsTooBig.Value").ToString();
+        throw new Exception(string.Format(messageTemplate, maxPrice));
+    }
+}
+</pre>
+<p>Shipped alongside it, so the setting exists after install:</p>
+<pre>
+packages/UsrYacht/Data/SysSettings_UsrYachtMaxPrice/data.json         &lt;- Code "UsrYachtMaxPrice", ValueTypeName "Float"
+packages/UsrYacht/Data/SysSettingsValue_UsrYachtMaxPrice/data.json    &lt;- default FloatValue 100000.00
+</pre>
+<p>And the message text carries a placeholder rather than the number:</p>
+<pre>
+&lt;Item Name="LocalizableStrings.ValueIsTooBig.Value" Value="No yacht should cost over {0:N0}" /&gt;
+</pre>
+
+<h2>Exceptions</h2>
+<p>No issue is raised for:</p>
+<ul>
+  <li>the identity and neutral values <code>-1</code>, <code>0</code>, <code>1</code>, and <code>Guid.Empty</code>,
+      which are sentinels rather than thresholds;</li>
+  <li>comparisons against <code>Count</code>, <code>Length</code>, <code>Rows.Count</code> and similar collection
+      sizes, and against <code>string.Empty</code>;</li>
+  <li>technical constants that are not business policy: HTTP status codes, buffer sizes, array indices,
+      <code>TimeSpan</code> unit conversions, and units of measure;</li>
+  <li>generated code under <code>packages/*/Autogenerated/**</code>, and test code under <code>tests/**</code>,
+      where fixed expected values are the point.</li>
+</ul>
+
+<h2>Resources</h2>
+<h3>Documentation</h3>
+<ul>
+  <li>Creatio Academy &mdash; System settings</li>
+  <li>Creatio Academy &mdash; <code>SysSettings.GetValue</code> and reading settings from server code</li>
+  <li>Creatio Academy &mdash; Package <code>Data</code> binding (delivering <code>SysSettings</code> records with a package)</li>
+</ul>
+<h3>Related rules</h3>
+<ul>
+  <li>S109 &mdash; Magic numbers should not be used</li>
+  <li>S1192 &mdash; String literals should not be duplicated</li>
+</ul>

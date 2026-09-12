@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="en-US">
+	<Group Type="String">
+		<Items>
+			<Item Name="Caption" Value="Call DNB page" />
+			<Item Name="LocalizableStrings.PageTitle_caption.Value" Value="Enter details" />
+			<Item Name="Parameters.966e4a70-97b9-81ad-6fc1-d19dea59f639.Caption" Value="Company name" />
+			<Item Name="Parameters.d0c020d4-cd70-829e-1cc9-8efab4fa7466.Caption" Value="Country code (ISO, 2 letters)" />
+		</Items>
+	</Group>
+</Resources>

@@ -1,0 +1,54 @@
+﻿{
+  "PackageData": [
+    {
+      "Row": [
+        {
+          "SchemaColumnUId": "0fde6f1e-22c5-48c7-9c89-6f0031e270de",
+          "Value": "7ebec09b-a3dd-4bd3-82a2-2ddd1ecd3d2a",
+          "DisplayValue": "Favicon"
+        },
+        {
+          "SchemaColumnUId": "8f1984bb-7bef-4220-9b49-9a12d0ebcd68",
+          "Value": "a29a3ba5-4b0d-de11-9a51-005056c00008",
+          "DisplayValue": "All employees"
+        },
+        {
+          "SchemaColumnUId": "23c7dde8-7cf5-4f18-9d76-0fa4179ee931",
+          "Value": "null"
+        },
+        {
+          "SchemaColumnUId": "297f4697-d071-4be2-8509-9090c07dfe18",
+          "Value": false
+        },
+        {
+          "SchemaColumnUId": "34f73492-296e-4a73-95f7-e7de5a3b3509",
+          "Value": "null"
+        },
+        {
+          "SchemaColumnUId": "55472376-a4dd-40da-86c6-975ce4b898fa",
+          "Value": true
+        },
+        {
+          "SchemaColumnUId": "ae0e45ca-c495-4fe7-a39d-3ab7278e1617",
+          "Value": "0f3a17f6-506c-4dc5-aeee-c6e86dacd97e"
+        },
+        {
+          "SchemaColumnUId": "af6013ce-7387-4619-b4f4-30c4276fcfac",
+          "Value": ""
+        },
+        {
+          "SchemaColumnUId": "b1ffd2d8-2bd3-4c46-b9c0-782afb0996c0",
+          "Value": 0.00
+        },
+        {
+          "SchemaColumnUId": "b36bfa07-34c7-45b1-a2ee-39e653034ba0",
+          "Value": 0
+        },
+        {
+          "SchemaColumnUId": "ffd545dd-d2de-40d7-8b07-20654613bb20",
+          "Value": "PHN2ZyB3aWR0aD0iNjQiIGhlaWdodD0iNjQiIHZpZXdCb3g9IjAgMCA2MDAgNjAwIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHJvbGU9ImltZyIgYXJpYS1sYWJlbD0iVW5pdCBlbWJsZW0iPg0KPHRpdGxlPlVuaXQgZW1ibGVtPC90aXRsZT4NCjxjaXJjbGUgY3g9IjMwMCIgY3k9IjMwMCIgcj0iMjk2IiBmaWxsPSIjNEI1MzIwIi8+DQo8cGF0aCBkPSJNMzAwLjAsODYuMCBMMzMwLjAsMTY2LjcgTDQxNi4wLDE3MC4zIEwzNDguNSwyMjMuOCBMMzcxLjcsMzA2LjcgTDMwMC4wLDI1OS4wIEwyMjguMywzMDYuNyBMMjUxLjUsMjIzLjggTDE4NC4wLDE3MC4zIEwyNzAuMCwxNjYuNyBaIiBmaWxsPSIjRkZGRkZGIi8+DQo8cGF0aCBkPSJNMTQ4LjAsMzQ4LjAgTDMwMC4wLDQyNC4wIEw0NTIuMCwzNDguMCBMNDUyLjAsMzkwLjAgTDMwMC4wLDQ2Ni4wIEwxNDguMCwzOTAuMCBaIiBmaWxsPSIjRkZGRkZGIi8+DQo8cGF0aCBkPSJNMTQ4LjAsNDUwLjAgTDMwMC4wLDUyNi4wIEw0NTIuMCw0NTAuMCBMNDUyLjAsNDkyLjAgTDMwMC4wLDU2OC4wIEwxNDguMCw0OTIuMCBaIiBmaWxsPSIjRkZGRkZGIi8+DQo8L3N2Zz4NCg=="
+        }
+      ]
+    }
+  ]
+}

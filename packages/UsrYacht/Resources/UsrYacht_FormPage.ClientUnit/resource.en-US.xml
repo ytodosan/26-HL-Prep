@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Resources Culture="en-US">
+	<Group Type="String">
+		<Items>
+			<Item Name="Caption" Value="Yachts form page" />
+			<Item Name="LocalizableStrings.Button_zroppsx_caption.Value" Value="Actions" />
+			<Item Name="LocalizableStrings.CaptainEmail_caption.Value" Value="Email address" />
+			<Item Name="LocalizableStrings.CaptainEmail_label.Value" Value="Cap's email" />
+			<Item Name="LocalizableStrings.LengthCannotBeLess.Value" Value="The minimum length is 10 ft" />
+			<Item Name="LocalizableStrings.MenuItem_YachtService_caption.Value" Value="Yacht Service" />
+			<Item Name="LocalizableStrings.MenuItem_YachtService_caption_v2.Value" Value="Yacht service" />
+			<Item Name="LocalizableStrings.MenuItem_n50eqg3_caption.Value" Value="Average price by Id" />
+			<Item Name="LocalizableStrings.MenuItem_n50eqg3_caption_v2.Value" Value="Calculate average ticket price" />
+			<Item Name="LocalizableStrings.MenuItem_n50eqg3_clicked_params_notificationText.Value" Value="Average ticket price is being calculated" />
+			<Item Name="LocalizableStrings.PDS_UsrCaptainEmail_37ejs1s.Value" Value="Captain's email" />
+			<Item Name="LocalizableStrings.PDS_UsrCaptainEmail_37ejs1s_tooltip.Value" Value="Taken from the contact record of the selected captain. To change it, edit that contact." />
+			<Item Name="LocalizableStrings.PDS_UsrComment_7ty1zgu_placeholder.Value" Value="Add notes on condition, equipment or charter restrictions" />
+			<Item Name="LocalizableStrings.PDS_UsrCrewCount_kalxrpp_tooltip.Value" Value="Number of crew members on board, not counting guests." />
+			<Item Name="LocalizableStrings.PDS_UsrLength_kg5k836_tooltip.Value" Value="Overall length in feet. Values below the configured minimum length are rejected when you save." />
+			<Item Name="LocalizableStrings.PDS_UsrPassengerCount_l8povhd_tooltip.Value" Value="Maximum number of guests the yacht can carry, not counting crew." />
+			<Item Name="LocalizableStrings.PDS_UsrPrice_mmuou1d_tooltip.Value" Value="Charter rate for one full day. Defaults to the minimum price configured in system settings; a lower value is rejected when you save." />
+			<Item Name="LocalizableStrings.PDS_UsrYachtNumber_t2u9vj1_tooltip.Value" Value="Generated automatically in the format Y-0001 when the yacht is first saved. It cannot be edited here." />
+			<Item Name="LocalizableStrings.PriceCannotBeLess.Value" Value="Below minimum price" />
+			<Item Name="LocalizableStrings.YachtCategories_label.Value" Value="Categories" />
+			<Item Name="LocalizableStrings.YachtCrewExpansionPanel_title.Value" Value="Crew and management" />
+			<Item Name="LocalizableStrings.YachtDetailsExpansionPanel_title.Value" Value="Categories and notes" />
+			<Item Name="LocalizableStrings.YachtSpecsExpansionPanel_title.Value" Value="Specifications" />
+			<Item Name="LocalizableStrings.addRecord_eg7jx1y_caption.Value" Value="Add new" />
+			<Item Name="LocalizableStrings.addRecord_f7gusah_caption.Value" Value="Add new" />
+			<Item Name="LocalizableStrings.addRecord_hmolef7_caption.Value" Value="Add new" />
+			<Item Name="LocalizableStrings.addRecord_mwvrpah_caption.Value" Value="Add new" />
+		</Items>
+	</Group>
+</Resources>

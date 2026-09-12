@@ -1,0 +1,35 @@
+﻿{
+  "Descriptor": {
+    "UId": "276e858e-9630-489d-8203-baa55c9d04fe",
+    "Name": "SysImageInTag_ShellBackground",
+    "ModifiedOnUtc": "\/Date(1789210837000)\/",
+    "InstallType": 0,
+    "Schema": {
+      "UId": "0ec9b2ce-8269-4ad8-bfc2-1b64cebd222a",
+      "Name": "SysImageInTag"
+    },
+    "Columns": [
+      {
+        "ColumnUId": "203d4062-bc4d-71d4-72a7-5c4cf729dd11",
+        "IsForceUpdate": false,
+        "IsKey": false,
+        "ColumnName": "Tag",
+        "DataTypeValueUId": "b295071f-7ea9-4e62-8d1a-919bf3732ff2"
+      },
+      {
+        "ColumnUId": "ae0e45ca-c495-4fe7-a39d-3ab7278e1617",
+        "IsForceUpdate": false,
+        "IsKey": true,
+        "ColumnName": "Id",
+        "DataTypeValueUId": "23018567-a13c-4320-8687-fd6f9e3699bd"
+      },
+      {
+        "ColumnUId": "d91c10e6-ad50-7c41-6832-a27a6ea0359b",
+        "IsForceUpdate": false,
+        "IsKey": false,
+        "ColumnName": "Entity",
+        "DataTypeValueUId": "b295071f-7ea9-4e62-8d1a-919bf3732ff2"
+      }
+    ]
+  }
+}

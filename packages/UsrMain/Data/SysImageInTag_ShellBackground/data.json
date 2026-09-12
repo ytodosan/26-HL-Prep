@@ -1,0 +1,22 @@
+﻿{
+  "PackageData": [
+    {
+      "Row": [
+        {
+          "SchemaColumnUId": "ae0e45ca-c495-4fe7-a39d-3ab7278e1617",
+          "Value": "62af1135-812b-48e4-8474-38ef096c6a02"
+        },
+        {
+          "SchemaColumnUId": "203d4062-bc4d-71d4-72a7-5c4cf729dd11",
+          "Value": "273c2402-7cae-456b-a9c4-067d2024f1a7",
+          "DisplayValue": "shell_background"
+        },
+        {
+          "SchemaColumnUId": "d91c10e6-ad50-7c41-6832-a27a6ea0359b",
+          "Value": "2cc029d6-4af0-4f58-a4ad-a8413c0da26b",
+          "DisplayValue": "multicam-background.svg"
+        }
+      ]
+    }
+  ]
+}

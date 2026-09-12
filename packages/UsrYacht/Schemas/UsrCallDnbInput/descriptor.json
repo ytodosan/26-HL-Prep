@@ -1,0 +1,13 @@
+﻿{
+  "Descriptor": {
+    "UId": "5b1acdf0-9757-4f4c-85c0-572ded514d5d",
+    "Name": "UsrCallDnbInput",
+    "ModifiedOnUtc": "\/Date(1789144197000)\/",
+    "Parent": {
+      "UId": "ecdcc8ff-272c-4957-9381-7d74ce17e140",
+      "Name": "BaseMiniPageTemplate"
+    },
+    "ManagerName": "ClientUnitSchemaManager",
+    "Caption": "Call DNB page"
+  }
+}

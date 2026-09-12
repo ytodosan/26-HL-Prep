@@ -1,0 +1,13 @@
+﻿{
+  "Descriptor": {
+    "UId": "9cc083e6-8f98-4c05-a684-a1f9474908b7",
+    "Name": "UsrYachtAvgPriceBP",
+    "ModifiedOnUtc": "\/Date(1788358783000)\/",
+    "Parent": {
+      "UId": "ecdcc8ff-272c-4957-9381-7d74ce17e140",
+      "Name": "BaseMiniPageTemplate"
+    },
+    "ManagerName": "ClientUnitSchemaManager",
+    "Caption": "Yacht avg price"
+  }
+}
