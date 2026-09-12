@@ -1,0 +1,11 @@
+﻿{
+  "SqlScript": {
+    "UId": "fda7d7da-237a-422d-93a3-646bf990a8ec",
+    "Name": "TRSysAdminRootDisablePg",
+    "DBEngineType": 2,
+    "InstallType": 0,
+    "ModifiedOnUtc": "\/Date(1789224412000)\/",
+    "BackwardCompatibilityConfirmed": false,
+    "DependsOn": []
+  }
+}

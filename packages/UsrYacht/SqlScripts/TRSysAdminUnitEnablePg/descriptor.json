@@ -1,0 +1,11 @@
+﻿{
+  "SqlScript": {
+    "UId": "e64a0e31-ba7d-429d-b2d6-d69d71e1a0df",
+    "Name": "TRSysAdminUnitEnablePg",
+    "DBEngineType": 2,
+    "InstallType": 2,
+    "ModifiedOnUtc": "\/Date(1789224412000)\/",
+    "BackwardCompatibilityConfirmed": false,
+    "DependsOn": []
+  }
+}
