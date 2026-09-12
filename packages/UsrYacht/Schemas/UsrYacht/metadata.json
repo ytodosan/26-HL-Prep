@@ -164,6 +164,14 @@
   "A5": "9dcb38ef-24dc-4192-b7f5-2fab0e602502",
   "S2": "5cc8060d-6d10-4773-89fc-8c12d6f659a6"
 }
++ MetaData.Schema.D2 {
+  "UId": "0ebb8ce6-b707-6ced-ecce-9de76ff2dd4b",
+  "A2": "UsrNewColumn",
+  "A3": "7ecbee39-000d-4e26-a76c-699ff12d0f99",
+  "A4": "7ecbee39-000d-4e26-a76c-699ff12d0f99",
+  "A5": "9dcb38ef-24dc-4192-b7f5-2fab0e602502",
+  "S2": "325a73b8-0f47-44a0-8412-7606f78003ac"
+}
 ~ MetaData.Schema.D2 [
   "ae0e45ca-c495-4fe7-a39d-3ab7278e1617",
   "e80190a5-03b2-4095-90f7-a193a960adee",
@@ -183,7 +191,8 @@
   "bd8b3fd6-d120-1d60-4e4b-e8a7b971a2ed",
   "2d78fd6c-4fcb-3f24-cf33-83e1fae3c1f7",
   "180a2caa-7aee-ec8c-a3b1-9c5e61cda16f",
-  "911c0d36-5609-cdcb-a7d6-99623e917d83"
+  "911c0d36-5609-cdcb-a7d6-99623e917d83",
+  "0ebb8ce6-b707-6ced-ecce-9de76ff2dd4b"
 ]
 = MetaData.Schema.D20.A2 "UsrYachtEvents"
 + MetaData.Schema.D20.FA1 false
